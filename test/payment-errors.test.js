@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import pix from '../api/pix.js';
+import { normalizeExpiry } from '../lib/blackcat.js';
 const customer = {name:'Pessoa de Teste',email:'checkout@example.test',confirmEmail:'checkout@example.test',document:'52998224725',phone:'11999999999'};
 function response() { return { code:200, setHeader(){},status(v){this.code=v;return this;},json(v){this.body=v;return this;} }; }
 function setup(t, fetcher) {
@@ -51,4 +52,20 @@ test('readiness checks credentials without creating a sale or disclosing seller 
   const res=response();await pix({method:'GET',headers:{host:'localhost:3000'}},res);
   assert.equal(res.code,200);assert.deepEqual(res.body,{available:true});
 });
+test('expiry accepts ISO timezone, Unix seconds and Unix milliseconds without guessing a deadline',()=>{
+  const now=Date.parse('2026-10-27T00:00:00Z');
+  const future=Date.parse('2026-10-28T00:00:00Z');
+  for (const value of [future,future/1000,String(future),String(future/1000),'2026-10-27T21:00:00-03:00']) assert.equal(normalizeExpiry(value,now),'2026-10-28T00:00:00.000Z');
+  for (const value of [null,undefined,'','Invalid Date','2026-10-28 00:00:00','2026-10-28T00:00:00','2020-01-01T00:00:00Z',0,{},Infinity]) assert.equal(normalizeExpiry(value,now),null);
+});
+for (const expiry of ['Invalid Date','','2020-01-01T00:00:00Z','2026-10-28 00:00:00']) {
+  test(`a created Pix reaches the modal even with unusable expiry: ${JSON.stringify(expiry)}`,async t=>{
+    let calls=0;
+    setup(t,async()=>{calls++;return new Response(JSON.stringify({success:true,data:{transactionId:'TXN-TEST',status:'PENDING',amount:59940,paymentData:{copyPaste:'000201LOCAL-TEST-NOT-PAYABLE',expiresAt:expiry}}}),{status:201});});
+    t.mock.method(console,'warn',()=>{});
+    const res=response();await pix(req(),res);
+    assert.equal(res.code,201);assert.equal(res.body.expiresAt,null);assert.equal(res.body.status,'PENDING');
+    assert.equal(res.body.code,'000201LOCAL-TEST-NOT-PAYABLE');assert.match(res.body.qrImage,/^data:image\/png;base64,/);assert.ok(res.body.token);assert.equal(calls,1);
+  });
+}
 

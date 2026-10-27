@@ -8,7 +8,7 @@ function showErrors(errors) {
     $(name).setAttribute('aria-invalid', String(Boolean(errors[name])));
   }
 }
-function openPayment() { if (!dialog.open) dialog.showModal(); if (!terminal) scheduleStatus(); }
+function openPayment() { if (!dialog.open) dialog.showModal(); if (!terminal) void checkStatus(); }
 function scheduleStatus() { clearTimeout(timer); if (dialog.open && !terminal) timer = setTimeout(checkStatus, 12000); }
 function markTerminal(status) {
   terminal = true; clearTimeout(timer); dialog.classList.add('terminal');
@@ -45,6 +45,7 @@ async function generate(event) {
     payment = result;
     $('pix-qr').src = result.qrImage; $('pix-code').value = result.code;
     $('expiration').textContent = result.expiresAt ? `Válido até ${new Date(result.expiresAt).toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' })}` : 'Conclua o pagamento no aplicativo do seu banco.';
+    if (['PAID','CANCELLED','REFUNDED'].includes(result.status)) markTerminal(result.status);
     openPayment();
   } catch (error) {
     uncertain = true;
