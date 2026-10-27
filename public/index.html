@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Checkout | Prescrição de Canetas na Prática Médica</title>
+  <meta name="description" content="Inscreva-se em Prescrição de Canetas na Prática Médica. R$ 599,40 à vista no Pix.">
+  <meta name="theme-color" content="#24090e">
+  <link rel="icon" href="/assets/logo.png"><link rel="stylesheet" href="/styles.css">
+  <link rel="preconnect" href="https://static.hotmart.com" crossorigin>
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <main class="page">
+    <div class="top-banner"><img src="/assets/banner.webp" alt="Matrículas abertas. Exclusivo para médicos. R$ 599,40 à vista no Pix. Garantia de 7 dias." fetchpriority="high"></div>
+    <section class="checkout" aria-label="Finalizar inscrição">
+      <div class="country"><span aria-hidden="true">🇧🇷</span> Brasil <span>•</span> Português</div>
+      <header class="product"><img src="/assets/logo.png" alt="Prescrição de Canetas na Prática Médica" width="92" height="92"><div><h1>Prescrição de Canetas na Prática Médica</h1><p class="author">Autor: MSVB VIANA EXAMES MEDICOS LTDA</p><p class="price">R$ 599,40</p><p class="payment-note">à vista no Pix</p></div></header>
+      <form id="checkout-form" novalidate>
+        <fieldset><legend>Dados pessoais</legend>
+          <div class="field"><label for="email">Seu email</label><input id="email" name="email" type="email" autocomplete="email" placeholder="Digite seu email para receber a compra" required maxlength="254" aria-describedby="email-error"><span class="field-error" id="email-error"></span></div>
+          <div class="field"><label for="confirmEmail">Confirme seu email</label><input id="confirmEmail" name="confirmEmail" type="email" autocomplete="off" placeholder="Digite novamente seu email" required maxlength="254" aria-describedby="confirmEmail-error"><span class="field-error" id="confirmEmail-error"></span></div>
+          <div class="field"><label for="name">Nome completo</label><input id="name" name="name" autocomplete="name" placeholder="Digite seu nome completo" required maxlength="120" aria-describedby="name-error"><span class="field-error" id="name-error"></span></div>
+          <div class="field-row"><div class="field"><label for="document">CPF/CNPJ</label><input id="document" name="document" inputmode="numeric" placeholder="Digite o número do seu CPF ou CNPJ" required maxlength="18" aria-describedby="document-error"><span class="field-error" id="document-error"></span></div><div class="field"><label for="phone">Celular</label><div class="phone-input"><span>BR <b>+55</b></span><input id="phone" name="phone" type="tel" autocomplete="tel-national" placeholder="(11) 96123-4567" required maxlength="15" aria-describedby="phone-error"></div><span class="field-error" id="phone-error"></span></div></div>
+        </fieldset>
+        <fieldset class="payment-section"><legend>Escolha a forma de pagamento</legend><div class="payment-card"><div class="payment-heading"><span class="radio" aria-hidden="true"></span><svg class="pix-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 1 5 5-4 4a1.5 1.5 0 0 1-2 0L7 6zm-6 6 4 4a3 3 0 0 0 4 0l4-4 5 5-5 5-4-4a3 3 0 0 0-4 0l-4 4-5-5zm1 11 4-4a1.5 1.5 0 0 1 2 0l4 4-5 5z"/></svg><strong>Pix</strong><span class="instant">Aprovação rápida</span></div><div class="payment-body"><div class="payment-actions"><p class="instruction"><span class="check" aria-hidden="true">✓</span> Gere o código e conclua o pagamento no aplicativo do seu banco.</p><button class="primary" id="generate" type="submit"><span aria-hidden="true">▦</span> <span id="generate-label">Gerar código QR</span></button><button class="secondary" id="open-pix" type="button">Copiar código Pix</button><p class="amount-note">Pagamento único de <strong>R$ 599,40</strong></p></div><svg class="qr-placeholder" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" aria-hidden="true"><rect x="9" y="9" width="36" height="36" rx="8"/><rect x="75" y="9" width="36" height="36" rx="8"/><rect x="9" y="75" width="36" height="36" rx="8"/><path d="M76 111V76h17v19h18V75M94 111h1M111 111h1"/><path d="M26 26h2M92 26h2M26 92h2" stroke-width="11"/></svg></div></div>
+        <p id="form-message" class="form-message" role="alert"></p>
+        <details class="more"><summary>Mostrar mais <span aria-hidden="true">⌄</span></summary><p>Abra o aplicativo do seu banco, selecione Pix e escolha “Pix Copia e Cola” ou escaneie o QR Code. Confira o valor e o destinatário antes de confirmar.</p></details></fieldset>
+      </form>
+      <section class="purchase-details"><h2>Detalhes da compra</h2><div class="order-line"><strong>Prescrição de Canetas na Prática Médica</strong><span>R$ 599,40</span></div><div class="total"><span>Total à vista</span><strong>R$ 599,40</strong></div></section>
+      <footer class="checkout-footer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V6a4 4 0 0 1 8 0v4m-4 5v2"/></svg><span>Pagamento processado por <strong>Black Cat</strong></span></footer>
+    </section>
+    <img class="bottom-banner" src="/assets/banner-vertical.webp" alt="Prescrição de Canetas na Prática Médica. Matrículas abertas por R$ 599,40 à vista no Pix. Garantia incondicional de 7 dias." loading="lazy" width="724" height="2172">
+    <p class="page-footer">Prescrição de Canetas na Prática Médica</p>
+  </main>
+  <dialog id="pix-dialog" aria-labelledby="pix-title" aria-describedby="pix-description"><button id="close-dialog" class="close-dialog" type="button" aria-label="Fechar">×</button><div class="modal-badge" aria-hidden="true">✓</div><h2 id="pix-title">Pague com Pix</h2><p id="pix-description">Escaneie o QR Code ou copie o código abaixo.</p><p class="modal-price">R$ 599,40 <span>à vista</span></p><img id="pix-qr" class="pix-qr" alt="QR Code para pagar R$ 599,40" width="224" height="224"><p id="expiration" class="expiration"></p><label for="pix-code" class="code-label">Código Pix Copia e Cola</label><textarea id="pix-code" readonly rows="2" spellcheck="false"></textarea><button type="button" class="primary" id="copy-code">Copiar código Pix</button><p id="copy-message" class="copy-message" role="status"></p><div id="payment-status" class="payment-status" role="status"><span class="status-dot"></span> Aguardando pagamento</div><button type="button" id="check-status" class="text-button">Já paguei · verificar pagamento</button><p class="modal-help">No app do seu banco, escolha Pix → Copia e Cola. Confira os dados e confirme o pagamento.</p></dialog>
+</body>
+</html>
