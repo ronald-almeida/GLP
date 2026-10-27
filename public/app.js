@@ -37,14 +37,14 @@ async function generate(event) {
     try { result = await response.json(); } catch { throw new Error('Não foi possível confirmar a geração. Consulte o vendedor antes de tentar novamente.'); }
     if (!response.ok) {
       if (result.errors) showErrors(result.errors);
-      uncertain = Boolean(result.uncertain) || response.status >= 500 && response.status !== 503;
-      $('form-message').textContent = result.message || 'Não foi possível gerar o Pix.';
+      uncertain = typeof result.uncertain === 'boolean' ? result.uncertain : response.status >= 500;
+      $('form-message').textContent = (result.message || 'Não foi possível gerar o Pix.') + (result.reference ? ` Referência: ${result.reference}.` : '');
       return;
     }
     if (!result.code || !result.qrImage || !result.token) throw new Error('Resposta incompleta. Consulte o vendedor antes de gerar outro Pix.');
     payment = result;
     $('pix-qr').src = result.qrImage; $('pix-code').value = result.code;
-    $('expiration').textContent = `Válido até ${new Date(result.expiresAt).toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' })}`;
+    $('expiration').textContent = result.expiresAt ? `Válido até ${new Date(result.expiresAt).toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' })}` : 'Conclua o pagamento no aplicativo do seu banco.';
     openPayment();
   } catch (error) {
     uncertain = true;
@@ -89,3 +89,4 @@ $('document').addEventListener('input', e => {
 });
 $('phone').addEventListener('input', e => { const d = digits(e.target.value).slice(0,11); e.target.value = d.replace(/^(\d{2})(\d)/,'($1) $2').replace(/(\d{4,5})(\d{4})$/,'$1-$2'); });
 document.addEventListener('visibilitychange', () => { if (!document.hidden && dialog.open && payment && !terminal) checkStatus(); });
+
